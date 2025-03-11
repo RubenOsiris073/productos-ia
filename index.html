@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detección de Objetos en Tiempo Real</title>
+    <!-- Carga TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <!-- Carga Firebase (versión 8 para facilidad de uso) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <style>
+        #predictions {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        .input-container {
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 640px;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        label {
+            min-width: 180px;
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        select, textarea {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+        .btn-guardar {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-guardar:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <video id="video" width="640" height="480" autoplay muted></video>
+    
+    <div class="input-container">
+        <div class="input-group">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" min="1" value="1">
+        </div>
+        <div class="input-group">
+            <label for="fecha-caducidad">Fecha de caducación:</label>
+            <input type="date" id="fecha-caducidad" name="fecha-caducidad">
+        </div>
+        <div class="input-group">
+            <label for="ubicacion">Ubicación/Almacén:</label>
+            <input type="text" id="ubicacion" name="ubicacion" placeholder="Bodega principal">
+        </div>
+        <div class="input-group">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" min="0" step="0.01">
+        </div>
+        <div class="input-group">
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria">
+                <option value="">Seleccionar categoría</option>
+                <option value="alimentos">Alimentos</option>
+                <option value="bebidas">Bebidas</option>
+                <option value="limpieza">Productos de limpieza</option>
+                <option value="otros">Otros</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="codigo">Código/SKU:</label>
+            <input type="text" id="codigo" name="codigo">
+        </div>
+        <div class="input-group">
+            <label for="stock-minimo">Stock mínimo:</label>
+            <input type="number" id="stock-minimo" name="stock-minimo" min="0" value="5">
+        </div>
+        <div class="input-group">
+            <label for="notas">Observaciones:</label>
+            <textarea id="notas" name="notas" rows="2"></textarea>
+        </div>
+        <button id="guardar-producto" class="btn-guardar">Guardar Producto</button>
+    </div>
+    
+    <div id="predictions">Cargando modelo...</div>
+    <script src="firebase.js"></script>
+    <script src="script.js"></script>
+    <script></script>
+</body>
+</html>
